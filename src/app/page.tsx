@@ -2,17 +2,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { Section, TimelineItem } from "@/components/section";
 import {
+  awards,
   competitions,
-  conferences,
   credentials,
   education,
   experience,
   profile,
-  skills,
+  service,
+  skillGroups,
   summary,
-  volunteer,
 } from "@/content/resume";
 import { getPosts } from "@/lib/posts";
+
+const RESUME_MAILTO = `mailto:${profile.email}?subject=${encodeURIComponent(
+  "Résumé request",
+)}`;
 
 export default async function Home() {
   const posts = await getPosts();
@@ -28,12 +32,15 @@ export default async function Home() {
         <div className="relative grid gap-12 py-20 md:grid-cols-[1fr_auto] md:items-center md:py-28">
           <div className="rise">
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
-              Cybersecurity · Program Management
+              Technical Program Management
             </p>
             <h1 className="mt-6 text-balance text-5xl font-semibold leading-[1.05] tracking-tight text-bright sm:text-6xl md:text-7xl">
               {profile.name}
             </h1>
-            <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-body">
+            <p className="mt-5 font-mono text-sm text-mute">
+              Mission Systems &amp; Flight Test · {profile.location}
+            </p>
+            <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-body">
               {profile.tagline}
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -43,12 +50,12 @@ export default async function Home() {
               >
                 Get in touch
               </a>
-              <Link
-                href="/blog"
+              <a
+                href={RESUME_MAILTO}
                 className="rounded-full border border-line px-6 py-3 font-mono text-sm text-body transition-colors hover:border-accent hover:text-bright"
               >
-                Read the blog
-              </Link>
+                Request résumé
+              </a>
             </div>
           </div>
           <div className="rise relative mx-auto w-48 shrink-0 sm:w-56 md:w-64">
@@ -69,7 +76,7 @@ export default async function Home() {
       </section>
 
       <Section id="about" index="01" title="Profile">
-        <div className="grid gap-6 text-[15px] leading-relaxed md:grid-cols-2">
+        <div className="grid gap-6 text-[15px] leading-relaxed md:grid-cols-3">
           {summary.map((p) => (
             <p key={p.slice(0, 40)} className="text-pretty">
               {p}
@@ -87,9 +94,33 @@ export default async function Home() {
               org={r.org}
               meta={`${r.start} — ${r.end}`}
               current={r.current}
-            />
+            >
+              {r.points && (
+                <ul className="mt-3 space-y-2">
+                  {r.points.map((pt) => (
+                    <li
+                      key={pt.slice(0, 40)}
+                      className="flex gap-3 text-sm leading-relaxed text-mute"
+                    >
+                      <span
+                        aria-hidden
+                        className="mt-2 size-1 shrink-0 rounded-full bg-accent/60"
+                      />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </TimelineItem>
           ))}
         </ul>
+        <p className="mt-8 border-t border-line/60 pt-6 text-sm text-mute">
+          A detailed résumé is available{" "}
+          <a href={RESUME_MAILTO} className="link-sweep text-accent">
+            on request
+          </a>
+          .
+        </p>
       </Section>
 
       <Section id="credentials" index="03" title="Certifications & Clearance">
@@ -109,12 +140,7 @@ export default async function Home() {
       <Section id="education" index="04" title="Education">
         <ul>
           {education.map((e) => (
-            <TimelineItem
-              key={e.degree}
-              title={e.degree}
-              org={e.org}
-              meta={e.span}
-            >
+            <TimelineItem key={e.degree} title={e.degree} org={e.org} meta={e.span}>
               {e.notes && (
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {e.notes.map((n) => (
@@ -132,22 +158,38 @@ export default async function Home() {
         </ul>
       </Section>
 
-      <Section id="skills" index="05" title="Skills & Tools">
+      <Section id="capabilities" index="05" title="Capabilities">
+        <div className="grid gap-8 sm:grid-cols-3">
+          {skillGroups.map((g) => (
+            <div key={g.label}>
+              <h3 className="font-mono text-xs uppercase tracking-[0.15em] text-accent">
+                {g.label}
+              </h3>
+              <ul className="mt-4 space-y-2.5">
+                {g.items.map((s) => (
+                  <li key={s} className="text-sm text-body">
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section id="service" index="06" title="Service & Recognition">
         <ul className="flex flex-wrap gap-2">
-          {skills.map((s) => (
+          {awards.map((a) => (
             <li
-              key={s}
-              className="rounded-full border border-line bg-surface px-4 py-2 font-mono text-sm text-body transition-colors hover:border-accent hover:text-accent"
+              key={a}
+              className="rounded-full border border-accent/40 bg-accent/5 px-4 py-2 font-mono text-xs text-accent"
             >
-              {s}
+              {a}
             </li>
           ))}
         </ul>
-      </Section>
-
-      <Section id="volunteer" index="06" title="Volunteer Experience">
-        <ul>
-          {volunteer.map((v) => (
+        <ul className="mt-10">
+          {service.map((v) => (
             <TimelineItem
               key={`${v.role}-${v.org}`}
               title={v.role}
@@ -158,24 +200,7 @@ export default async function Home() {
         </ul>
       </Section>
 
-      <Section id="conferences" index="07" title="Conferences">
-        <div className="grid gap-x-8 gap-y-px sm:grid-cols-2">
-          {conferences.map((c, i) => (
-            <div
-              key={`${c.name}-${c.year}-${i}`}
-              className="flex items-baseline justify-between gap-4 border-b border-line/60 py-3.5"
-            >
-              <div>
-                <span className="text-sm text-bright">{c.name}</span>
-                <span className="ml-2 text-xs text-mute">{c.location}</span>
-              </div>
-              <span className="font-mono text-xs text-accent">{c.year}</span>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="competitions" index="08" title="Competitions">
+      <Section id="competitions" index="07" title="Competitions">
         <ul className="grid gap-3 sm:grid-cols-2">
           {competitions.map((c) => (
             <li key={c} className="flex items-start gap-3 text-sm text-body">
@@ -187,7 +212,7 @@ export default async function Home() {
       </Section>
 
       {posts.length > 0 && (
-        <Section id="writing" index="09" title="Writing">
+        <Section id="writing" index="08" title="Writing">
           <ul className="space-y-px">
             {posts.map((p) => (
               <li key={p.slug}>

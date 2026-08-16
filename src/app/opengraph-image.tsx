@@ -28,7 +28,7 @@ export default function OG() {
             color: "#4ee2b5",
           }}
         >
-          Cybersecurity · Program Management
+          Mission Systems · Flight Test
         </div>
         <div style={{ fontSize: 118, fontWeight: 700, marginTop: 28 }}>
           {profile.name}

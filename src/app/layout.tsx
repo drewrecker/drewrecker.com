@@ -10,7 +10,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono-jb" });
 export const metadata: Metadata = {
   metadataBase: new URL(profile.site),
   title: {
-    default: `${profile.name} — ${profile.title}`,
+    default: `${profile.name} — Technical Program Management`,
     template: `%s — ${profile.name}`,
   },
   description: profile.tagline,
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     description: profile.tagline,
     url: "/",
   },
+  other: { "theme-color": "#08090b" },
   twitter: { card: "summary_large_image", creator: "@drewwrecker" },
 };
 

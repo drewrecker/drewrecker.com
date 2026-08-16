@@ -1,4 +1,14 @@
 // Single source of truth for the resume. Edit here; every section renders from this.
+//
+// DELIBERATELY LESS SPECIFIC THAN THE PDF RESUME. This is a public, permanently
+// indexed page, not a directed disclosure to a named recruiter. Keep out of it:
+//   - clearance level and any special-access references ("details on request" only)
+//   - program nicknames and specific program designations
+//   - team sizes, campaign counts, schedule tempo
+//   - specific aircraft platforms tied to cross-domain / accreditation work
+//   - phone number
+// Any one of those is mundane alone; assembled on one page they are a targeting
+// profile. The detailed version goes out by email on request.
 
 export type Role = {
   title: string;
@@ -6,6 +16,7 @@ export type Role = {
   start: string;
   end: string;
   current?: boolean;
+  points?: string[];
 };
 
 export type Credential = {
@@ -20,23 +31,23 @@ export type School = {
   notes?: string[];
 };
 
-export type Volunteer = {
+export type Service = {
   role: string;
   org: string;
   when: string;
 };
 
-export type Conference = {
-  name: string;
-  location: string;
-  year: string;
+export type SkillGroup = {
+  label: string;
+  items: string[];
 };
 
 export const profile = {
   name: "Drew Recker",
-  title: "Cybersecurity Program Management Professional",
+  title: "Technical Program Management — Mission Systems & Flight Test",
+  location: "Fort Worth, Texas",
   tagline:
-    "Experienced leader in the cybersecurity space with team leadership, project execution lifecycle, and helping implement experimental technical solutions",
+    "Technical program leader delivering mission systems and flight test capability across advanced air platforms, with a background in cybersecurity engineering and secure software development.",
   email: "drew@drewrecker.com",
   photo: "/img/drew.webp",
   site: "https://drewrecker.com",
@@ -44,6 +55,8 @@ export const profile = {
 
 export const socials = [
   { name: "LinkedIn", href: "https://www.linkedin.com/in/drewrecker" },
+  { name: "GitHub", href: "https://github.com/drewrecker" },
+  { name: "drewrecker.dev", href: "https://drewrecker.dev" },
   { name: "YouTube", href: "https://www.youtube.com/@DrewRecker" },
   { name: "Instagram", href: "https://www.instagram.com/drewrecker/" },
   { name: "X", href: "https://x.com/drewwrecker" },
@@ -52,182 +65,190 @@ export const socials = [
 ] as const;
 
 export const summary: string[] = [
-  "Cybersecurity experience in threat analysis, computer and network security, vulnerability scanning, Splunk, WireShark, and Metasploit. Software development experience with C++, C#, Python, Java, PowerShell + Bash scripting, and agile development tools. Experience in DevSecOps environment utilizing software build pipelines, automated code scanning, unit test frameworks, Integrated Ground and Flight Test, experience Software Bill of Materials (SBOM), and Chaos Engineering (Site Reliability Engineering [SRE]) tools.",
-  "Lead Technical Program Manager for multiple million-dollar contracts at Lockheed Martin for Cybersecurity tasks. I lead a team of Cybersecurity professionals, working towards NIST 800.53 RMF Approvals (ATO, ATC, IATT, CDS). I submit proposals, plan program activities, and execute multiple contracts across Lockheed Martin Skunkworks on their Joint All-Domain Operations (JADO) Team. Experienced leader and team management professional.",
-  "I am a Cybersecurity professional with a Master's of Science in Cybersecurity from Southern Methodist University and a Bachelor's Degree focused in Cyber Intelligence and Security from Embry-Riddle Aeronautical University with a minor in computer engineering.",
+  "Technical program leader at Lockheed Martin Skunk Works, working across mission systems, flight test, autonomy, and cybersecurity on advanced air platforms. I plan and execute flight test programs, own the security approvals that gate them, and serve as a primary technical interface to the customer.",
+  "My background is engineering first. I have built open mission systems software, stood up DevSecOps pipelines and cloud infrastructure, architected cross domain solutions, and led cybersecurity engineering teams through RMF accreditation. That grounding is what lets me run technical programs from the inside rather than from a spreadsheet.",
+  "I hold a Master of Science in Cybersecurity Engineering from Southern Methodist University and a Bachelor of Science in Cybersecurity from Embry-Riddle Aeronautical University, with a minor in Computer Science.",
 ];
 
 export const experience: Role[] = [
   {
-    title: "Technical Program Management Staff",
-    org: "Lockheed Martin SkunkWorks",
-    start: "November 2022",
+    title: "Software Engineer Staff",
+    org: "Lockheed Martin Skunk Works",
+    start: "2024",
     end: "Present",
     current: true,
+    points: [
+      "Deputy program manager and cybersecurity lead for an advanced autonomy flight test program supporting USAF research.",
+      "Plan and execute concurrent flight test campaigns, from test management plan development through execution.",
+      "Own security approvals, RMF compliance, and the cyber schedule gating flight test activity.",
+      "Developed multi-ship unmanned teaming capability using Open Mission Systems (OMS) and the Universal Command and Control Interface (UCI).",
+      "Contributed to the capture and award of a new IDIQ contract vehicle.",
+    ],
   },
   {
-    title: "Senior Cyber Software Engineer",
-    org: "Lockheed Martin",
-    start: "September 2021",
-    end: "November 2022",
+    title: "Technical Program Management Staff — Cybersecurity",
+    org: "Lockheed Martin Skunk Works",
+    start: "2022",
+    end: "2024",
+    points: [
+      "Led a team of cybersecurity engineers meeting requirements and approvals for flight tests, development projects, and fielding of operational assets.",
+      "Architected cross domain solution implementations enabling accredited data sharing between security domains.",
+      "Integrated common cyber architectures across multiple aircraft programs.",
+      "Authored RFI responses and proposal content; maintained the cyber compliance schedule against contract milestones.",
+    ],
   },
   {
-    title: "Cyber Software Engineer",
-    org: "Lockheed Martin",
-    start: "April 2020",
-    end: "September 2021",
+    title: "Senior Cybersecurity Software Engineer",
+    org: "Lockheed Martin Skunk Works",
+    start: "2021",
+    end: "2022",
+    points: [
+      "Developed Open Mission Systems software in a SAFe Agile environment supporting flight test preparation and execution.",
+      "Established DevSecOps processes including a software delivery pipeline, government cloud infrastructure, and automated metric traceability.",
+    ],
   },
   {
-    title: "Cybersecurity Engineer Asc",
-    org: "Lockheed Martin",
-    start: "June 2019",
-    end: "April 2020",
+    title: "Cybersecurity Software Engineer",
+    org: "Lockheed Martin Skunk Works",
+    start: "2020",
+    end: "2021",
+    points: [
+      "Developed Open Mission Systems software performing cross-system integration across disparate platforms.",
+      "Executed flight test preparation for on-aircraft and in-lab integration events; performed security scanning and implemented STIG and SELinux policies.",
+    ],
+  },
+  {
+    title: "Cyber Systems Security Engineer, Associate",
+    org: "Lockheed Martin Aeronautics",
+    start: "2019",
+    end: "2020",
+    points: [
+      "Delivered cybersecurity solutions for a major air system program, working with the government program office to ensure RMF adherence.",
+      "Coordinated across government and contractor stakeholders to align cybersecurity artifacts with accreditation milestones.",
+    ],
   },
   {
     title: "Cybersecurity Analyst",
     org: "SAP Fieldglass",
-    start: "June 2018",
-    end: "May 2019",
-  },
-  {
-    title: "Teaching Assistant",
-    org: "Embry-Riddle Aeronautical University",
-    start: "January 2019",
-    end: "May 2019",
-  },
-  {
-    title: "Home Appliance Sales Consultant",
-    org: "Sears",
-    start: "November 2012",
-    end: "June 2019",
-  },
-  {
-    title: "At-Home Advisor",
-    org: "Apple",
-    start: "June 2014",
-    end: "July 2015",
+    start: "2018",
+    end: "2019",
+    points: [
+      "Built Splunk detection content to identify and resolve vulnerabilities across enterprise networks and systems.",
+      "Analyzed intrusion alerts and network anomalies; supported audit compliance for SOC 1, SOC 2, ISO 27001, and SSAE 16.",
+    ],
   },
 ];
 
 export const credentials: Credential[] = [
-  { name: "US DoD Clearance", detail: "More information can be provided" },
-  { name: "CompTIA Security+", detail: "Issued January 2020" },
+  { name: "Active DoD Clearance", detail: "Details available on request" },
+  { name: "CompTIA CySA+", detail: "DoD 8570 IAT Level II" },
+  { name: "CompTIA Security+", detail: "DoD 8570 IAT Level II" },
   { name: "Splunk Certified User", detail: "Issued June 2018" },
+  { name: "FAA Class III Medical", detail: "Current" },
 ];
 
 export const education: School[] = [
   {
-    degree: "M.S. Cybersecurity",
+    degree: "M.S. Cybersecurity Engineering",
     org: "Southern Methodist University",
-    span: "Spring 2020 — Spring 2024",
+    span: "2020 — 2024",
   },
   {
-    degree: "B.S. Cyber Intelligence and Security",
+    degree: "B.S. Cybersecurity",
     org: "Embry-Riddle Aeronautical University",
-    span: "Fall 2016 — May 2019",
-    notes: ["Minor in Computer Science", "Distinguished Graduate", "Cum Laude"],
+    span: "2016 — 2019",
+    notes: [
+      "Minor in Computer Science",
+      "Cum Laude",
+      "Distinguished Graduate, College of Security and Intelligence",
+    ],
   },
 ];
 
-export const volunteer: Volunteer[] = [
+export const skillGroups: SkillGroup[] = [
   {
-    role: "Technical Judge Lead",
-    org: "Lockheed Martin CyberQuest 2025",
-    when: "March 2025",
+    label: "Program",
+    items: [
+      "Flight Test Management",
+      "Test Management Plans",
+      "Capture & Proposal Support",
+      "Requirements Development",
+      "Customer & Stakeholder Relationships",
+      "SAFe Agile",
+      "Cross-Functional Team Leadership",
+    ],
   },
   {
-    role: "Technical Judge Lead",
-    org: "Lockheed Martin CyberQuest 2024",
-    when: "March 2024",
+    label: "Security",
+    items: [
+      "Cybersecurity Architecture",
+      "RMF, ATO & IATT Approvals",
+      "Cross Domain Solutions",
+      "STIG & SCAP",
+      "Splunk",
+      "Vulnerability Management",
+      "Penetration Testing",
+      "Reverse Engineering",
+    ],
   },
   {
-    role: "Technical Judge Lead",
-    org: "Lockheed Martin CyberQuest 2023",
-    when: "March 2023",
+    label: "Engineering",
+    items: [
+      "Python",
+      "C / C++",
+      "Java",
+      "Open Mission Systems (OMS)",
+      "DevSecOps",
+      "Government Cloud",
+      "Linux & SELinux",
+      "Autonomy & Unmanned Teaming",
+    ],
+  },
+];
+
+export const service: Service[] = [
+  {
+    role: "Lead Judge",
+    org: "Lockheed Martin CyberQuest, Fort Worth",
+    when: "2022 — 2025",
   },
   {
-    role: "Technical Judge Lead",
-    org: "Lockheed Martin CyberQuest 2022",
-    when: "March 2022",
+    role: "Judge",
+    org: "Department of Energy CyberForce Competition",
+    when: "2019, 2021",
   },
-  { role: "Judge", org: "Solar Car Challenge 2022", when: "July 2022" },
+  { role: "Judge", org: "Solar Car Challenge", when: "2019, 2022" },
   {
-    role: "F-35 Simulator",
+    role: "F-35 Simulator Volunteer",
     org: "Engineering Week — Fort Worth Museum of Science and History",
-    when: "February 2020",
+    when: "2020",
+  },
+  {
+    role: "Founder & President",
+    org: "Cyber Defense Club, Embry-Riddle Aeronautical University",
+    when: "2018 — 2019",
   },
   {
     role: "CTF Advisor",
-    org: "Embry-Riddle Aeronautical University CyberAero CTF 2019",
-    when: "November 2019",
-  },
-  {
-    role: "Red Team",
-    org: "Department of Energy Cyberforce Competition",
-    when: "November 2019",
-  },
-  {
-    role: "Technical Expert",
-    org: "Lockheed Martin CyberQuest 2019",
-    when: "October 2019",
-  },
-  { role: "Judge", org: "Solar Car Challenge 2019", when: "July 2019" },
-  {
-    role: "President and Founder",
-    org: "ERAU Cyber Defense Club",
-    when: "August 2018 — May 2019",
+    org: "CyberAero CTF, Embry-Riddle Aeronautical University",
+    when: "2019",
   },
   {
     role: "Student Mentor",
     org: "Embry-Riddle Aeronautical University",
-    when: "August 2018 — May 2019",
-  },
-  {
-    role: "Visuals, Lighting, and Soundboard Support",
-    org: "Desert Springs Bible Church",
-    when: "June 2011 — July 2013",
+    when: "2018 — 2019",
   },
 ];
 
-export const skills: string[] = [
-  "Splunk",
-  "Penetration Testing",
-  "Reverse Engineering",
-  "Wireshark",
-  "Kali Linux",
-  "IDA Pro",
-  "Redline",
-  "Metasploit",
-  "Vulnerability Scanning",
-  "DevSecOps",
-  "RMF",
-  "Agile",
-  "Buildroot",
-  "C",
-  "C++",
-  "Java",
-  "Python",
-  "RegEx",
-  "Cypher",
-];
-
-export const conferences: Conference[] = [
-  { name: "RSA Conference", location: "San Francisco, California", year: "2020" },
-  { name: "Chaos Conference", location: "San Francisco, California", year: "2019" },
-  { name: "RSA Conference", location: "San Francisco, California", year: "2019" },
-  { name: "Google I/O", location: "San Francisco, California", year: "2019" },
-  { name: "OWASP AppSec California", location: "Santa Monica, California", year: "2019" },
-  { name: "B-Sides DFW", location: "Fort Worth, Texas", year: "2019" },
-  { name: "IEEE Metrocon", location: "Fort Worth, Texas", year: "2019" },
-  { name: "CactusCon", location: "Phoenix, Arizona", year: "2018" },
-  { name: "ToorCon", location: "San Diego, California", year: "2018" },
-  { name: "Google I/O", location: "San Francisco, California", year: "2014" },
+export const awards: string[] = [
+  "President's Volunteer Service Award, 2020",
+  "Embry-Riddle Outstanding Graduate",
 ];
 
 export const competitions: string[] = [
   "National Cyber League",
   "Western Regional Cyber Defense Competition",
-  "Hack Arizona",
+  "Department of Energy CyberForce Competition",
   "MITRE CTF",
-  "Department of Energy's Cyberforce Competition",
+  "Hack Arizona",
 ];
