@@ -15,7 +15,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await loadPost(slug);
   if (!post) return {};
 
-  const { title, description, date, cover } = post.metadata;
+  const { title, description, date } = post.metadata;
+  // `images` is intentionally omitted: the opengraph-image.tsx in this segment
+  // generates a branded card per post, and an explicit value here would win.
   return {
     title,
     description,
@@ -26,7 +28,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       publishedTime: date,
       url: `/blog/${slug}`,
-      images: cover ? [cover] : undefined,
     },
   };
 }
