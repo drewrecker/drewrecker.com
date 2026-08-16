@@ -1,22 +1,27 @@
 # Squarespace → Vercel migration
 
-Status as of the initial migration.
+The DNS cutover runbook. For the full task checklist, see
+[README.md](README.md#outstanding-work).
 
 ## Done
 
-- Site rebuilt as Next.js and deployed to Vercel (project `drewrecker-com`)
-- All resume content migrated from the Squarespace page
+- Site rebuilt as Next.js, deployed to Vercel under the personal `drewrecker`
+  account, project `drewrecker.com`
+- All resume content migrated, then rewritten from the August 2026 resume and
+  held deliberately less specific than the PDF
 - Blog post "How Sears Killed the Mall" migrated in full — all 12 photos, the
   Kenmore supplier table, every reference link
 - Images pulled off the Squarespace CDN into `public/` (they are WebP, despite
   the `.jpg` names Squarespace served them under)
 - Permanent redirects for every URL in the old Squarespace sitemap
-- `drewrecker.com` registered on the Vercel project — **DNS not yet changed**
+- GitHub connected — pushes to `main` deploy automatically
 
-## Not done — requires your action
+## Not done
 
-1. **DNS cutover** (below)
-2. **Connect the GitHub repo to Vercel** so pushes auto-deploy
+1. **Release both domains from the `drtechventures` account** (see below), then
+   add them to the `drewrecker.com` project
+2. **DNS cutover** (below) — **DNS has not been changed; the live site is still
+   Squarespace**
 3. **Cancel the Squarespace website plan** — only after the cutover is verified
 
 ## ⚠️ Read before touching DNS: your email runs on this domain
