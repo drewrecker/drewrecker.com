@@ -1,0 +1,97 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-void: #08090b;
+  --color-surface: #0e1014;
+  --color-raised: #14171d;
+  --color-line: #23272f;
+  --color-mute: #7d8590;
+  --color-body: #b9c0ca;
+  --color-bright: #f2f5f8;
+  --color-accent: #4ee2b5;
+  --color-accent-dim: #1f6f59;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, "SF Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchored sections shouldn't hide under the sticky header. */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-void);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Ambient grid — pure CSS, no image request. */
+.grid-field {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+}
+
+/*
+ * Scroll-linked reveals via native scroll-driven animations — no JS, no observer.
+ * ponytail: `animation-timeline: view()` is Chromium/Safari-only today (no Firefox).
+ * Content is visible by default and only opts into animating inside @supports,
+ * so unsupported browsers get the finished state rather than a blank page.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero entrance runs on load, so it needs no timeline. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: reveal-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+/* Underline that draws in from the left on hover. */
+.link-sweep {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-sweep:hover,
+.link-sweep:focus-visible {
+  background-size: 100% 1px;
+}
