@@ -13,6 +13,7 @@ import {
   skillGroups,
   summary,
 } from "@/content/resume";
+import { personSchema } from "@/lib/person-schema";
 import { getPosts } from "@/lib/posts";
 
 const RESUME_MAILTO = `mailto:${profile.email}?subject=${encodeURIComponent(
@@ -24,6 +25,11 @@ export default async function Home() {
 
   return (
     <div className="mx-auto max-w-5xl px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema()) }}
+      />
+
       {/* Hero */}
       <section className="relative">
         <div

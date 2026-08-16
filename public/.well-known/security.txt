@@ -1,0 +1,7 @@
+# RFC 9116 security contact for drewrecker.com
+# https://www.rfc-editor.org/rfc/rfc9116
+
+Contact: mailto:drew@drewrecker.com
+Expires: 2027-08-16T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://drewrecker.com/.well-known/security.txt

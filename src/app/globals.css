@@ -83,6 +83,79 @@ body {
   }
 }
 
+/*
+ * Print / "Save as PDF". Recruiters do this, so the output should read as a
+ * document rather than a screenshot of a dark website: white ground, black
+ * text, no chrome, and sections kept off page breaks.
+ */
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+
+  html {
+    scroll-padding-top: 0;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+  }
+
+  /* Site chrome, decoration, and anything purely interactive. */
+  header,
+  footer,
+  .grid-field,
+  [href^="mailto:"].rounded-full,
+  a[href="/blog"].rounded-full {
+    display: none !important;
+  }
+
+  /* Flatten the dark palette — Tailwind wrote these as inline custom props. */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    border-color: #bbb !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+  }
+
+  img {
+    filter: none !important;
+  }
+
+  /* Spell out destinations, since a printed link is otherwise a dead end. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8.5pt;
+    color: #555 !important;
+    word-break: break-all;
+  }
+
+  section,
+  li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  section {
+    border-top: 1px solid #ddd !important;
+    padding-top: 0.6cm !important;
+    padding-bottom: 0.3cm !important;
+  }
+}
+
 /* Underline that draws in from the left on hover. */
 .link-sweep {
   background-image: linear-gradient(var(--color-accent), var(--color-accent));
