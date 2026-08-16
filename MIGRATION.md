@@ -16,13 +16,15 @@ The DNS cutover runbook. For the full task checklist, see
 - Permanent redirects for every URL in the old Squarespace sitemap
 - GitHub connected — pushes to `main` deploy automatically
 
+- Old `drtechventures` project deleted and its domain claims released
+- `drewrecker.com` and `www.drewrecker.com` attached to the `drewrecker.com`
+  project on the personal account — Vercel is ready to receive traffic
+
 ## Not done
 
-1. **Release both domains from the `drtechventures` account** (see below), then
-   add them to the `drewrecker.com` project
-2. **DNS cutover** (below) — **DNS has not been changed; the live site is still
+1. **DNS cutover** (below) — **DNS has not been changed; the live site is still
    Squarespace**
-3. **Cancel the Squarespace website plan** — only after the cutover is verified
+2. **Cancel the Squarespace website plan** — only after the cutover is verified
 
 ## ⚠️ Read before touching DNS: your email runs on this domain
 
@@ -66,10 +68,24 @@ these records in the Squarespace domain dashboard.
 | Type | Name | Value |
 | --- | --- | --- |
 | A | `@` | `76.76.21.21` |
-| CNAME | `www` | `cname.vercel-dns.com` |
+| A | `www` | `76.76.21.21` |
 
 Delete all four Squarespace A records and replace them with the single Vercel A
-record. Repoint the `www` CNAME. **Change nothing else.**
+record. Replace the `www` CNAME (currently `ext-sq.squarespace.com`) with an
+A record to the same address. **Change nothing else.**
+
+These are the values Vercel returns for *these* domains — confirm with
+`vercel domains inspect` rather than assuming, since Vercel varies its
+recommendation by domain:
+
+```bash
+vercel domains inspect drewrecker.com && vercel domains inspect www.drewrecker.com
+```
+
+> [!NOTE]
+> A `CNAME www → cname.vercel-dns.com` also works and is the more common
+> pattern for subdomains. Vercel recommends the A record for this domain, so
+> that is what is documented here. Do not use both for the same name.
 
 ### Verify
 
@@ -113,15 +129,9 @@ automatically. Manual deploys still work with:
 vercel deploy --prod
 ```
 
-## Outstanding cleanup on the drtechventures account
+## Account cleanup — complete
 
-`drewrecker.com` and `www.drewrecker.com` are still claimed by the old project,
-which blocks the personal account from adding them (`domain_not_owned`, 403).
-From the `drtechventures` Vercel dashboard:
-
-1. Project `drewrecker-com` → Settings → Domains → remove both
-   `drewrecker.com` and `www.drewrecker.com`
-2. Delete the `drewrecker-com` project
-
-This is safe at any time: DNS still points at Squarespace, so nothing live
-depends on those claims. Once removed, add them to the personal project.
+The site was briefly built under the `drtechventures` account. That project has
+been deleted and its claims on `drewrecker.com` and `www.drewrecker.com`
+released; both domains now sit on the `drewrecker.com` project under the
+personal account. Nothing further is needed there.

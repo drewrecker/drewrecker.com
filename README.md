@@ -203,17 +203,15 @@ These are current ecosystem limits, not oversights. Re-check periodically.
 
 Ordered by dependency. Full DNS detail in [MIGRATION.md](MIGRATION.md).
 
-### Blocking the domain cutover
+### The cutover
 
-- [ ] **Release the domains from the `drtechventures` Vercel account.** The old
-      project still claims `drewrecker.com` and `www.drewrecker.com`, which
-      blocks this project from adding them (`domain_not_owned`, 403). In the
-      `drtechventures` dashboard: project `drewrecker-com` → Settings →
-      Domains → remove both, then delete the project.
-- [ ] **Add both domains** to the `drewrecker.com` project once released.
-- [ ] **Cut DNS over** — change the apex `A` record to `76.76.21.21` and the
-      `www` CNAME to `cname.vercel-dns.com`. ⚠️ **Do not move nameservers**;
-      see the email warning in [MIGRATION.md](MIGRATION.md).
+- [x] ~~Release the domains from the `drtechventures` account~~ — done; that
+      project is deleted.
+- [x] ~~Add both domains to the `drewrecker.com` project~~ — done; Vercel is
+      ready to receive traffic.
+- [ ] **Cut DNS over** — point both the apex and `www` at `76.76.21.21`, replacing
+      the four Squarespace A records and the `www` CNAME. ⚠️ **Do not move
+      nameservers** — that would break email; see [MIGRATION.md](MIGRATION.md).
 - [ ] **Verify email still works** — `dig +short MX drewrecker.com` must still
       return iCloud, and send a test message to `drew@drewrecker.com`.
 - [ ] **Cancel the Squarespace website plan** — only after the cutover is
