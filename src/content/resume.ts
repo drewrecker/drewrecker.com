@@ -139,6 +139,28 @@ export const experience: Role[] = [
   },
 ];
 
+// Pre-career roles. Rendered more quietly than the roles above so they stay
+// visible without competing with the defense work — these are here for the
+// customer-facing and technical-support grounding, not for chronology.
+export const earlyExperience: Role[] = [
+  {
+    title: "Home Appliance Sales Consultant",
+    org: "Sears",
+    start: "2012",
+    end: "2019",
+    points: [
+      "Top-ranked appliance salesperson company-wide in 2016 and 2017; served on the Home Appliance Council advising on merchandising direction.",
+    ],
+  },
+  {
+    title: "At-Home Advisor",
+    org: "Apple",
+    start: "2014",
+    end: "2015",
+    points: ["Remote technical support across Apple's hardware and software lines."],
+  },
+];
+
 export const credentials: Credential[] = [
   { name: "Active DoD Clearance", detail: "Details available on request" },
   { name: "CompTIA CySA+", detail: "DoD 8570 IAT Level II" },

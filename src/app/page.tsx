@@ -5,6 +5,7 @@ import {
   awards,
   competitions,
   credentials,
+  earlyExperience,
   education,
   experience,
   profile,
@@ -114,7 +115,40 @@ export default async function Home() {
             </TimelineItem>
           ))}
         </ul>
-        <p className="mt-8 border-t border-line/60 pt-6 text-sm text-mute">
+        <div className="mt-4 border-t border-line/60 pt-8">
+          <h3 className="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-mute">
+            Earlier
+          </h3>
+          <ul>
+            {earlyExperience.map((r) => (
+              <TimelineItem
+                key={`${r.title}-${r.start}`}
+                title={r.title}
+                org={r.org}
+                meta={`${r.start} — ${r.end}`}
+              >
+                {r.points && (
+                  <ul className="mt-3 space-y-2">
+                    {r.points.map((pt) => (
+                      <li
+                        key={pt.slice(0, 40)}
+                        className="flex gap-3 text-sm leading-relaxed text-mute"
+                      >
+                        <span
+                          aria-hidden
+                          className="mt-2 size-1 shrink-0 rounded-full bg-accent/60"
+                        />
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </TimelineItem>
+            ))}
+          </ul>
+        </div>
+
+        <p className="mt-6 border-t border-line/60 pt-6 text-sm text-mute">
           A detailed résumé is available{" "}
           <a href={RESUME_MAILTO} className="link-sweep text-accent">
             on request
