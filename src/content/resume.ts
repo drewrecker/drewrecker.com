@@ -49,7 +49,10 @@ export const profile = {
   tagline:
     "Technical program leader delivering mission systems and flight test capability across advanced air platforms, with a background in cybersecurity engineering and secure software development.",
   email: "drew@drewrecker.com",
-  photo: "/img/drew.webp",
+  // Square headshot crop. The original was a 1200x1644 promo graphic with the
+  // face in the upper right and a baked-in "Cybersecurity Engineer" caption —
+  // both wrong for a centered circular avatar and for the current positioning.
+  photo: "/img/drew.jpg",
   site: "https://drewrecker.com",
 } as const;
 
