@@ -92,25 +92,31 @@ Put the four original Squarespace A records back and restore the `www` CNAME to
 old site returns once DNS propagates — which is exactly why you cancel the plan
 last, not first.
 
-## Connect GitHub to Vercel
+## Vercel account
 
-Automatic linking failed during setup: the Vercel GitHub App is not authorized
-on the `drewrecker` GitHub account, and the `drtechventures` Vercel team could
-not see the repo.
+The site lives under the personal Vercel account **`drewrecker`**
+(`drewreckers-projects`), project **`drewrecker.com`** — alongside
+`drewrecker.dev` and `reckergroupllc`.
 
-To fix, from the Vercel project settings → Git, connect
-`drewrecker/drewrecker.com` and approve the GitHub App installation. After that,
-every push to `main` deploys automatically.
+It was briefly built under the `drtechventures` account by mistake. That project
+and its domain claims must be removed there; see "Outstanding" below.
 
-Until then, deploy manually:
+GitHub is connected: pushes to `main` on `drewrecker/drewrecker.com` deploy
+automatically. Manual deploys still work with:
 
 ```bash
 vercel deploy --prod
 ```
 
-## Note on deployment protection
+## Outstanding cleanup on the drtechventures account
 
-The project inherits team SSO protection with scope
-`all_except_custom_domains`. That means `*.vercel.app` preview URLs sit behind a
-Vercel login, but `drewrecker.com` itself will be **publicly accessible** once
-the DNS cutover completes. No change needed.
+`drewrecker.com` and `www.drewrecker.com` are still claimed by the old project,
+which blocks the personal account from adding them (`domain_not_owned`, 403).
+From the `drtechventures` Vercel dashboard:
+
+1. Project `drewrecker-com` → Settings → Domains → remove both
+   `drewrecker.com` and `www.drewrecker.com`
+2. Delete the `drewrecker-com` project
+
+This is safe at any time: DNS still points at Squarespace, so nothing live
+depends on those claims. Once removed, add them to the personal project.
