@@ -83,7 +83,7 @@ function Footer() {
             </a>
           ))}
         </div>
-        <p className="mt-10 font-mono text-xs text-mute/70">
+        <p className="mt-10 font-mono text-xs text-mute">
           © {profile.name} {new Date().getFullYear()}
         </p>
       </div>
