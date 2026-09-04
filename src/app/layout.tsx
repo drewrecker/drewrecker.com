@@ -48,12 +48,12 @@ function Header() {
           <Link href="/blog" className="transition-colors hover:text-bright">
             Blog
           </Link>
-          <a
-            href={`mailto:${profile.email}`}
+          <Link
+            href="/contact"
             className="hidden text-accent transition-colors hover:text-bright sm:inline"
           >
             Contact
-          </a>
+          </Link>
         </div>
       </nav>
     </header>
@@ -64,12 +64,9 @@ function Footer() {
   return (
     <footer className="mt-32 border-t border-line/60">
       <div className="mx-auto max-w-5xl px-6 py-14">
-        <a
-          href={`mailto:${profile.email}`}
-          className="link-sweep font-mono text-lg text-bright"
-        >
-          {profile.email}
-        </a>
+        <Link href="/contact" className="link-sweep font-mono text-lg text-bright">
+          Get in touch
+        </Link>
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm text-mute">
           {socials.map((s) => (
             <a
