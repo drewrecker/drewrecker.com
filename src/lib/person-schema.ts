@@ -5,6 +5,10 @@ import { education, profile, socials } from "@/content/resume";
  * drewrecker.com to the name "Drew Recker" and fold the scattered profiles in
  * `sameAs` into a single identity rather than treating them as unrelated pages.
  *
+ * Deliberately omits `email`: scrapers parse JSON-LD, and moving contact to a
+ * form exists precisely to keep the address out of the page. Identity
+ * consolidation comes from `url` and `sameAs`, not the address.
+ *
  * Built from the resume module so it cannot drift from the rendered page.
  */
 export function personSchema() {
@@ -14,7 +18,6 @@ export function personSchema() {
     name: profile.name,
     url: profile.site,
     image: `${profile.site}${profile.photo}`,
-    email: `mailto:${profile.email}`,
     jobTitle: "Technical Program Manager",
     description: profile.tagline,
     worksFor: {

@@ -16,10 +16,6 @@ import {
 import { personSchema } from "@/lib/person-schema";
 import { getPosts } from "@/lib/posts";
 
-const RESUME_MAILTO = `mailto:${profile.email}?subject=${encodeURIComponent(
-  "Résumé request",
-)}`;
-
 export default async function Home() {
   const posts = await getPosts();
 
@@ -51,18 +47,18 @@ export default async function Home() {
               {profile.tagline}
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href={`mailto:${profile.email}`}
+              <Link
+                href="/contact"
                 className="rounded-full bg-accent px-6 py-3 font-mono text-sm text-void transition-transform hover:-translate-y-0.5 hover:bg-bright"
               >
                 Get in touch
-              </a>
-              <a
-                href={RESUME_MAILTO}
+              </Link>
+              <Link
+                href="/contact?topic=resume"
                 className="rounded-full border border-line px-6 py-3 font-mono text-sm text-body transition-colors hover:border-accent hover:text-bright"
               >
                 Request résumé
-              </a>
+              </Link>
             </div>
           </div>
           <div className="rise relative mx-auto w-48 shrink-0 sm:w-56 md:w-64">
@@ -156,9 +152,9 @@ export default async function Home() {
 
         <p className="mt-6 border-t border-line/60 pt-6 text-sm text-mute">
           A detailed résumé is available{" "}
-          <a href={RESUME_MAILTO} className="link-sweep text-accent">
+          <Link href="/contact?topic=resume" className="link-sweep text-accent">
             on request
-          </a>
+          </Link>
           .
         </p>
       </Section>
